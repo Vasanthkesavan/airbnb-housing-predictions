@@ -4,6 +4,7 @@
 /dist
 /tmp
 /out-tsc
+/src/backend/dbInfo.js
 
 # dependencies
 /node_modules
