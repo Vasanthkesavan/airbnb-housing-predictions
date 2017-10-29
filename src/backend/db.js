@@ -1,9 +1,8 @@
 var mongoose = require('mongoose');
-var dbUri = require('./dbInfo').dbUri;
 var Schema = mongoose.Schema;
 
 
-mongoose.connect('mongodb://' + dbUri);
+mongoose.connect('mongodb://localhost/airbnb');
 
 mongoose.connection.once('open', function() {
   console.log('database is connected');
@@ -18,6 +17,6 @@ var listingSchema = new Schema({
   price: String
 });
 
-var Listing = mongoose.model('Listing', listingSchema, 'listings');
+var Listing = mongoose.model('Listing', listingSchema, 'listing');
 
 module.exports.listingModel = Listing;
