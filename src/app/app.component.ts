@@ -7,7 +7,19 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor() {}
+  showHide: boolean;
 
+  constructor() {
+    this.showHide = false;
+  }
 
+  changeShowStatus() {
+    this.showHide = !this.showHide;
+  }
+
+  changeShowStatusForPrice() {
+    if(this.showHide === true) {
+      this.changeShowStatus();
+    };
+  }
 }
