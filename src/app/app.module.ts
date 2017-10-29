@@ -1,16 +1,38 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
+import {ServerService} from '../server.service';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { ChartcontainerComponent } from './chartcontainer/chartcontainer.component';
+import { ChartoneComponent } from './chartcontainer/chartone/chartone.component';
+import { CharttwoComponent } from './chartcontainer/charttwo/charttwo.component';
+import { ChartthreeComponent } from './chartcontainer/chartthree/chartthree.component';
+import {MatMenuModule} from '@angular/material';
+import {MatGridListModule} from '@angular/material';
+import {MatButtonModule} from '@angular/material';
+import { ChartsModule } from 'ng2-charts';
+import {MatToolbarModule} from '@angular/material';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ChartcontainerComponent,
+    ChartoneComponent,
+    CharttwoComponent,
+    ChartthreeComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpModule,
+    BrowserAnimationsModule,
+    MatMenuModule,
+    MatGridListModule,
+    MatButtonModule,
+    ChartsModule,
+    MatToolbarModule
   ],
-  providers: [],
+  providers: [ServerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

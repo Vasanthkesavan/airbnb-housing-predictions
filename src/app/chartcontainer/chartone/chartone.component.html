@@ -1,0 +1,19 @@
+<div style="display: block">
+  <mat-toolbar color="primary">
+    <div class="center">
+      <span>
+      <h2>
+        Price Comparison
+      </h2>
+    </span>
+    </div>
+  </mat-toolbar>
+  <br>
+  <canvas baseChart
+          [data]="doughnutChartData"
+          [labels]="doughnutChartLabels"
+          [chartType]="doughnutChartType"
+          [options]="doughnutChartOptions"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+</div>
