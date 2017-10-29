@@ -20,6 +20,7 @@ app.use(function(req, res, next){
 
 app.get('/api/hostVerification', getHostVerification);
 app.get('/api/getCleaningFee', getCleaningFee);
+app.get('/api/numberReviews', getNumberOfReviews);
 
 function getHostVerification(req, res) {
   var both = [];
@@ -70,10 +71,44 @@ function getHostVerification(req, res) {
       sum = priceArr.reduce(function(a,b) { return a + b; })
       both.push(Math.round(sum/cbData.length));
     }
-    res.send(JSON.stringify(both));
+    res.status(200).send(JSON.stringify(both));
   })
 }
 
 function getCleaningFee(req, res) {
-  res.send(JSON.stringify([200, 100]))
+  var ans1 = [];
+  var ans2 = [];
+  Listing.find({}).find(function (err, data) {
+    for(var a = 0; a < data.length; a++) {
+      if(data[a].cleaning_fee.length > 2) {
+        ans1.push(data[a].cleaning_fee)
+      } else {
+        ans2.push(data[a].cleaning_fee)
+      }
+    }
+    res.send(JSON.stringify([{data: [ans1.length], label: 'With Cleaning Fee'}, {data: [ans2.length], label: 'Without Cleaning Fee'}])
+      );
+  })
 }
+
+function getNumberOfReviews(req, res) {
+  var ans3 = [];
+  var ans4 = [];
+
+  Listing.find({}, function (err, data) {
+    if(err) {
+      console.log(err);
+    } else {
+      for(b = 0; b < data.length; b++) {
+        if(data[b].number_of_reviews > 0 && data[b].number_of_reviews < 10) {
+          ans3.push(data[b].number_of_reviews)
+        } else if(data[b].number_of_reviews > 20) {
+          ans4.push(data[b].number_of_reviews);
+        }
+      }
+    }
+    res.send(JSON.stringify([ans3.length, ans4.length]))
+  })
+}
+
+

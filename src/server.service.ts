@@ -13,4 +13,8 @@ export class ServerService {
   getChartTwoData() {
     return this.http.get('/api/getCleaningFee');
   }
+
+  getChartThreeData() {
+    return this.http.get('/api/numberReviews');
+  }
 }

@@ -1,0 +1,22 @@
+<div>
+  <div style="display: block">
+    <mat-toolbar color="primary">
+      <div class="center">
+      <span>
+      <h2>
+        Host and Cleaning Fee
+      </h2>
+    </span>
+      </div>
+    </mat-toolbar>
+    <br>
+    <canvas baseChart
+            [datasets]="chartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [legend]="barChartLegend"
+            [chartType]="barChartType"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)"></canvas>
+  </div>
+</div>

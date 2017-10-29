@@ -14,7 +14,10 @@ mongoose.connection.on('error', function(error) {
 
 var listingSchema = new Schema({
   host_verifications: String,
-  price: String
+  price: String,
+  cleaning_fee: String,
+  review_score_cleanliness: Number,
+  number_of_reviews: Number
 });
 
 var Listing = mongoose.model('Listing', listingSchema, 'listing');
