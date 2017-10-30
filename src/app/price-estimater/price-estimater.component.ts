@@ -7,6 +7,7 @@ import {ServerService} from '../../server.service'
   styleUrls: ['./price-estimater.component.css']
 })
 export class PriceEstimaterComponent implements OnInit {
+  value: any;
 
   constructor(private serverService: ServerService) { }
 
@@ -14,6 +15,12 @@ export class PriceEstimaterComponent implements OnInit {
   }
 
   recieveGeoLocation(Lat: Number, Long: Number) {
-    this.serverService.makePriceOptimization([Lat, Long]);
+    this.serverService.makePriceOptimization([Lat, Long])
+      .subscribe(
+        (response) => {
+          this.value = Number(response.text());
+        },
+        (error) => console.log(error)
+      );
   }
 }

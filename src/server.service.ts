@@ -19,6 +19,6 @@ export class ServerService {
   }
 
   makePriceOptimization(geoLocation: any[]) {
-    return this.http.get('/api/priceOptimize', geoLocation);
+    return this.http.post('/api/priceOptimize', geoLocation);
   }
 }

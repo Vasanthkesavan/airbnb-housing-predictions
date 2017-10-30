@@ -11,7 +11,13 @@ var app = express();
 
 app.listen(process.env.PORT || 3000);
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use( bodyParser.json() );       // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+}));
+
+app.use(express.json());       // to support JSON-encoded bodies
+app.use(express.urlencoded()); // to support URL-encoded bodies
 
 app.use(function(req, res, next){
   res.header("Content-Security-Policy", "default-src 'self';script-src 'self';object-src 'none';img-src 'self';media-src 'self';frame-src 'none';font-src 'self' data:;connect-src 'self';style-src 'self'");
@@ -21,7 +27,36 @@ app.use(function(req, res, next){
 app.get('/api/hostVerification', getHostVerification);
 app.get('/api/getCleaningFee', getCleaningFee);
 app.get('/api/numberReviews', getNumberOfReviews);
-app.get('/api/priceOptimize', makePriceOptimization);
+app.post('/api/priceOptimize', makePriceOptimization);
+
+/* Helper functions */
+
+function approxGeoLocation(lat, long) {
+  var parsedDecLat = parseInt((lat + "").split(".")[1]);
+  var parsedDecLong = parseInt((long + "").split(".")[1]);
+
+  parsedDecLat = parsedDecLat.toString().split('').reduce(function(a, b) { return Number(a) + Number(b) });
+  parsedDecLong = parsedDecLong.toString().split('').reduce(function(a, b) { return Number(a) + Number(b) });
+
+  return [parsedDecLat, parsedDecLong];
+}
+
+function twentyPercentApprox(geoLocation) {
+  var lat = geoLocation[0];
+  var long = geoLocation[1];
+
+  var lat20 = (25 / 100) * lat;
+  var long20 = (25 / 100) * long;
+
+  return [[Math.round(lat + lat20), Math.round(lat - lat20)], [Math.round(long + long20), Math.round(long - long20)]];
+}
+
+function convertNumber(dollar) {
+
+    return parseInt(dollar.replace("$", '').replace(/,/g, ''));
+
+}
+
 
 function getHostVerification(req, res) {
   var both = [];
@@ -113,6 +148,30 @@ function getNumberOfReviews(req, res) {
 }
 
 function makePriceOptimization(req, res) {
-  res.send('LOL')
+  const latitude = Number(req.body[0]);
+  const longitude = Number(req.body[1]);
+  const parsed = twentyPercentApprox(approxGeoLocation(latitude, longitude));
+
+  Listing.find({}, function (err, data) {
+    var result = [];
+
+    if(err) {
+      console.log(err);
+    } else {
+      for(c = 0; c < data.length; c++) {
+        var appr = approxGeoLocation(data[c].latitude, data[c].longitude);
+        var aLatitude = appr[0];
+        var aLongitude = appr[1];
+        if(parsed[0][0] >= aLatitude && aLatitude >= parsed[0][1]) {
+          if(parsed[1][0] >= aLongitude && aLongitude >= parsed[1][1]) {
+            result.push(convertNumber(data[c].weekly_price));
+          }
+        }
+      }
+      res.send(JSON.stringify((result.filter(Boolean).reduce(function (a, b) {
+        return a + b;
+      })/ result.length)))
+    }
+  })
 }
 

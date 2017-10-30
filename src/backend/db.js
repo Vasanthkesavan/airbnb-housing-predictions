@@ -17,7 +17,10 @@ var listingSchema = new Schema({
   price: String,
   cleaning_fee: String,
   review_score_cleanliness: Number,
-  number_of_reviews: Number
+  number_of_reviews: Number,
+  latitude: Number,
+  longitude: Number,
+  weekly_price: String
 });
 
 var Listing = mongoose.model('Listing', listingSchema, 'listing');
