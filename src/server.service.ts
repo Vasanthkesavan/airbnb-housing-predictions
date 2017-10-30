@@ -17,4 +17,8 @@ export class ServerService {
   getChartThreeData() {
     return this.http.get('/api/numberReviews');
   }
+
+  makePriceOptimization(geoLocation: any[]) {
+    return this.http.get('/api/priceOptimize', geoLocation);
+  }
 }

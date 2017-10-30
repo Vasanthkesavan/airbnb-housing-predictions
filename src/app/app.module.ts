@@ -13,6 +13,8 @@ import {MatGridListModule} from '@angular/material';
 import {MatButtonModule} from '@angular/material';
 import { ChartsModule } from 'ng2-charts';
 import {MatToolbarModule} from '@angular/material';
+import { PriceEstimaterComponent } from './price-estimater/price-estimater.component';
+import {MatInputModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import {MatToolbarModule} from '@angular/material';
     ChartcontainerComponent,
     ChartoneComponent,
     CharttwoComponent,
-    ChartthreeComponent
+    ChartthreeComponent,
+    PriceEstimaterComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +33,8 @@ import {MatToolbarModule} from '@angular/material';
     MatGridListModule,
     MatButtonModule,
     ChartsModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatInputModule
   ],
   providers: [ServerService],
   bootstrap: [AppComponent]

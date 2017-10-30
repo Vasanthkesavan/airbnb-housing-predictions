@@ -1,0 +1,19 @@
+<mat-grid-list cols="1" rowHeight="3:1">
+  <mat-grid-tile>
+    <form class="form">
+      <mat-form-field class="full-width">
+        <input matInput type="float" placeholder="Lattitude" value="" #latInput>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput type="float" placeholder="Longitude" value="" #longInput>
+      </mat-form-field>
+      <br>
+      <button mat-raised-button color="primary" type="button" (click)="recieveGeoLocation(latInput.value, longInput.value)">ESTIMATE</button>
+    </form>
+  </mat-grid-tile>
+</mat-grid-list>
+
+
+
+
+

@@ -21,6 +21,7 @@ app.use(function(req, res, next){
 app.get('/api/hostVerification', getHostVerification);
 app.get('/api/getCleaningFee', getCleaningFee);
 app.get('/api/numberReviews', getNumberOfReviews);
+app.get('/api/priceOptimize', makePriceOptimization);
 
 function getHostVerification(req, res) {
   var both = [];
@@ -111,4 +112,7 @@ function getNumberOfReviews(req, res) {
   })
 }
 
+function makePriceOptimization(req, res) {
+  res.send('LOL')
+}
 
