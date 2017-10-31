@@ -18,7 +18,7 @@ export class PriceEstimaterComponent implements OnInit {
     this.serverService.makePriceOptimization([Lat, Long])
       .subscribe(
         (response) => {
-          this.value = Number(response.text());
+            this.value = response.text();
         },
         (error) => console.log(error)
       );

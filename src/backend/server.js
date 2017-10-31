@@ -168,9 +168,13 @@ function makePriceOptimization(req, res) {
           }
         }
       }
-      res.send(JSON.stringify((result.filter(Boolean).reduce(function (a, b) {
-        return a + b;
-      })/ result.length)))
+      if(result.length === 0) {
+        res.send(JSON.stringify('Please enter a valid latitude and longitude'))
+      } else {
+        res.send(JSON.stringify((result.filter(Boolean).reduce(function (a, b) {
+          return a + b;
+        })/ result.length)))
+      }
     }
   })
 }
