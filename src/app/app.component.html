@@ -6,10 +6,11 @@
     <button mat-raised-button color="primary" (click)="changeShowStatusForPrice()">PRICE ESTIMATION</button>
   </mat-grid-tile>
   <mat-grid-tile>
-    <button mat-raised-button color="primary">BOOKINGS OPTIMIZATION</button>
+    <button mat-raised-button color="primary" (click)="changeShowStatusForBooking()">BOOKINGS OPTIMIZATION</button>
   </mat-grid-tile>
 </mat-grid-list>
 
 
 <app-chartcontainer *ngIf="showHide"></app-chartcontainer>
-<app-price-estimater></app-price-estimater>
+<app-price-estimater *ngIf="showPrice"></app-price-estimater>
+<app-bookings *ngIf="showBooking"></app-bookings>

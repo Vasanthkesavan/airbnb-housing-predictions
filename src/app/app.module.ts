@@ -15,6 +15,7 @@ import { ChartsModule } from 'ng2-charts';
 import {MatToolbarModule} from '@angular/material';
 import { PriceEstimaterComponent } from './price-estimater/price-estimater.component';
 import {MatInputModule} from '@angular/material';
+import { BookingsComponent } from './bookings/bookings.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {MatInputModule} from '@angular/material';
     ChartoneComponent,
     CharttwoComponent,
     ChartthreeComponent,
-    PriceEstimaterComponent
+    PriceEstimaterComponent,
+    BookingsComponent
   ],
   imports: [
     BrowserModule,
