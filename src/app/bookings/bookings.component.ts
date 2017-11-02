@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ServerService} from '../../server.service'
 
 @Component({
   selector: 'app-bookings',
@@ -6,10 +7,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./bookings.component.css']
 })
 export class BookingsComponent implements OnInit {
+  value: any;
 
-  constructor() { }
+  constructor(private serverService: ServerService) { }
 
   ngOnInit() {
   }
 
+  recieveGeoLocation(Lat: Number, Long: Number) {
+    this.serverService.makeBookingOptimizations([Lat, Long])
+      .subscribe(
+        (response) => {
+          this.value = response.text();
+        },
+        (error) => console.log(error)
+      );
+  }
 }

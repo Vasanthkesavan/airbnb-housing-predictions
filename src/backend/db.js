@@ -20,7 +20,14 @@ var listingSchema = new Schema({
   number_of_reviews: Number,
   latitude: Number,
   longitude: Number,
-  weekly_price: String
+  weekly_price: String,
+  review_scores_rating: Number,
+  review_scores_accuracy: Number,
+  review_scores_cleanliness: Number,
+  review_scores_checkin: Number,
+  review_scores_communication: Number,
+  review_scores_location: Number,
+  review_scores_value: Number
 });
 
 var Listing = mongoose.model('Listing', listingSchema, 'listing');

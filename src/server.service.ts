@@ -21,4 +21,8 @@ export class ServerService {
   makePriceOptimization(geoLocation: any[]) {
     return this.http.post('/api/priceOptimize', geoLocation);
   }
+
+  makeBookingOptimizations(geoLocation: any[]) {
+    return this.http.post('api/bookingOptimize', geoLocation);
+  }
 }

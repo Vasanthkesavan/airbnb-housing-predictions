@@ -28,7 +28,7 @@ app.get('/api/hostVerification', getHostVerification);
 app.get('/api/getCleaningFee', getCleaningFee);
 app.get('/api/numberReviews', getNumberOfReviews);
 app.post('/api/priceOptimize', makePriceOptimization);
-
+app.post('/api/bookingOptimize', makeBookingOptimization);
 /* Helper functions */
 
 function approxGeoLocation(lat, long) {
@@ -177,5 +177,30 @@ function makePriceOptimization(req, res) {
       }
     }
   })
+}
+
+function makeBookingOptimization(req, res) {
+  const latitude = Number(req.body[0]);
+  const longitude = Number(req.body[1]);
+  const parsed = twentyPercentApprox(approxGeoLocation(latitude, longitude));
+
+  Listing.find({}, function (err, data) {
+    var result = [];
+
+    if(err) {
+      console.log(err);
+    } else {
+      for(d = 0; d < data.length; d++) {
+        if(data[d].review_scores_rating >= 95) {
+          let sum = data[d].review_score_cleanliness + data[d].review_scores_accuracy + data[d].review_scores_checkin + data[d].review_scores_communication + data[d].review_scores_location + data[d].review_scores_accuracy;
+          if(sum === 60) {
+            result.push(data[d].price);
+          }
+        }
+      }
+    }
+    res.send(JSON.stringify(result[0]));
+  })
+
 }
 
