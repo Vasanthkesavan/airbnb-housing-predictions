@@ -1,8 +1,10 @@
 var mongoose = require('mongoose');
+var dbUri = require('./dbInfo').dbUri;
+
 var Schema = mongoose.Schema;
 
 
-mongoose.connect('mongodb://localhost/airbnb');
+mongoose.connect('mongodb://' + dbUri);
 
 mongoose.connection.once('open', function() {
   console.log('database is connected');

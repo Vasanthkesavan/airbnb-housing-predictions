@@ -186,7 +186,6 @@ function makeBookingOptimization(req, res) {
 
   Listing.find({}, function (err, data) {
     var result = [];
-    var toSum = [];
 
     if(err) {
       console.log(err);
