@@ -1,6 +1,6 @@
 {
   "/api/*":{
-    "target":"https://api.guarded-badlands-28225.herokuapp.com/",
+    "target":"https://guarded-badlands-28225.herokuapp.com/",
     "secure":false,
     "logLevel":"debug"
   }
