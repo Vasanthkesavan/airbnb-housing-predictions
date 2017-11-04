@@ -169,9 +169,9 @@ function makePriceOptimization(req, res) {
         }
       }
       if(result.length === 0) {
-        res.send(JSON.stringify('Please enter a valid latitude and longitude'))
+        return res.send(JSON.stringify('Please enter a valid latitude and longitude'))
       } else {
-        res.send(JSON.stringify((result.filter(Boolean).reduce(function (a, b) {
+        return res.send(JSON.stringify((result.filter(Boolean).reduce(function (a, b) {
           return a + b;
         })/ result.length)))
       }
@@ -186,20 +186,36 @@ function makeBookingOptimization(req, res) {
 
   Listing.find({}, function (err, data) {
     var result = [];
+    var toSum = [];
 
     if(err) {
       console.log(err);
     } else {
-      for(d = 0; d < data.length; d++) {
-        if(data[d].review_scores_rating >= 95) {
-          let sum = data[d].review_score_cleanliness + data[d].review_scores_accuracy + data[d].review_scores_checkin + data[d].review_scores_communication + data[d].review_scores_location + data[d].review_scores_accuracy;
-          if(sum === 60) {
-            result.push(data[d].price);
+      for(var d = 0; d < data.length; d++) {
+        var approx = approxGeoLocation(data[d].latitude, data[d].longitude);
+        var bLatitude = approx[0];
+        var bLongitude = approx[1];
+
+        if(parsed[0][0] >= bLatitude && bLatitude >= parsed[0][1]) {
+          if(parsed[1][0] >= bLongitude && bLongitude >= parsed[1][1]) {
+            if(data[d].review_scores_rating >= 95) {
+              var sum = data[d].review_scores_accuracy + data[d].review_scores_communication + data[d].review_scores_checkin + data[d].review_scores_location + data[d].review_scores_value;
+               if(sum >= 45) {
+                 result.push(convertNumber(data[d].price))
+               }
+            }
           }
         }
+
+      }
+      if(result.length === 0) {
+        return res.send(JSON.stringify('Please enter a valid latitude and longitude'))
+      } else {
+        return res.send(JSON.stringify((result.filter(Boolean).reduce(function (a, b) {
+          return a + b;
+        })/ result.length)))
       }
     }
-    res.send(JSON.stringify(result[0]));
   })
 
 }
