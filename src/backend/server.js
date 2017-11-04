@@ -10,6 +10,7 @@ var Listing = require('./db').listingModel;
 var app = express();
 
 app.listen(process.env.PORT || 3000);
+
 var distDir = __dirname + "/dist/";
 app.use(express.static(distDir));
 
