@@ -31,6 +31,7 @@ app.get('/api/getCleaningFee', getCleaningFee);
 app.get('/api/numberReviews', getNumberOfReviews);
 app.post('/api/priceOptimize', makePriceOptimization);
 app.post('/api/bookingOptimize', makeBookingOptimization);
+
 /* Helper functions */
 
 function approxGeoLocation(lat, long) {
